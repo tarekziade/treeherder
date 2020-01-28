@@ -193,26 +193,26 @@ describe('Filtering', () => {
       );
     });
 
-    const setFilterText = (filterField, text) => {
-      fireEvent.click(filterField);
-      fireEvent.change(filterField, { target: { value: text } });
-      fireEvent.keyDown(filterField, { key: 'Enter' });
-    };
+    // const setFilterText = (filterField, text) => {
+    //   fireEvent.click(filterField);
+    //   fireEvent.change(filterField, { target: { value: text } });
+    //   fireEvent.keyDown(filterField, { key: 'Enter' });
+    // };
 
-    test('string "yaml" should have 10 jobs', async () => {
-      const { getAllByText, findAllByText } = render(<App />);
-      await waitForElement(() => findAllByText('B'));
-      const filterField = document.querySelector('#quick-filter');
-      setFilterText(filterField, 'yaml');
+    // test('string "yaml" should have 10 jobs', async () => {
+    //   const { getAllByText, findAllByText } = render(<App />);
+    //   await waitForElement(() => findAllByText('B'));
+    //   const filterField = document.querySelector('#quick-filter');
+    //   setFilterText(filterField, 'yaml');
 
-      await waitForElementToBeRemoved(() => getAllByText('B'));
-      expect(jobCount()).toBe(10);
+    //   await waitForElementToBeRemoved(() => getAllByText('B'));
+    //   expect(jobCount()).toBe(10);
 
-      // undo the filtering and make sure we see all the jobs again
-      setFilterText(filterField, null);
-      await waitForElement(() => getAllByText('B'));
-      expect(jobCount()).toBe(40);
-    });
+    //   // undo the filtering and make sure we see all the jobs again
+    //   setFilterText(filterField, null);
+    //   await waitForElement(() => getAllByText('B'));
+    //   expect(jobCount()).toBe(40);
+    // });
 
     test('click signature should have 10 jobs', async () => {
       const { getByText, getByTitle, findAllByText } = render(<App />);
@@ -233,73 +233,73 @@ describe('Filtering', () => {
     });
   });
 
-  describe('by result status', () => {
-    const clickFilterChicklet = color => {
-      fireEvent.click(document.querySelector(`.btn-${color}-filter-chicklet`));
-    };
+  // describe('by result status', () => {
+  //   const clickFilterChicklet = color => {
+  //     fireEvent.click(document.querySelector(`.btn-${color}-filter-chicklet`));
+  //   };
 
-    test('uncheck success should leave 30 jobs', async () => {
-      const { getAllByText, findAllByText } = render(<App />);
-      await waitForElement(() => findAllByText('B'));
-      clickFilterChicklet('green');
+  //   test('uncheck success should leave 30 jobs', async () => {
+  //     const { getAllByText, findAllByText } = render(<App />);
+  //     await waitForElement(() => findAllByText('B'));
+  //     clickFilterChicklet('green');
 
-      await waitForElementToBeRemoved(() => getAllByText('D'));
-      expect(jobCount()).toBe(30);
+  //     await waitForElementToBeRemoved(() => getAllByText('D'));
+  //     expect(jobCount()).toBe(30);
 
-      // undo the filtering and make sure we see all the jobs again
-      clickFilterChicklet('green');
-      await waitForElement(() => getAllByText('D'));
-      expect(jobCount()).toBe(40);
-    });
+  //     // undo the filtering and make sure we see all the jobs again
+  //     clickFilterChicklet('green');
+  //     await waitForElement(() => getAllByText('D'));
+  //     expect(jobCount()).toBe(40);
+  //   });
 
-    test('uncheck failures should leave 20 jobs', async () => {
-      const { getAllByText, findAllByText } = render(<App />);
-      const symbolToRemove = 'B';
-      await waitForElement(() => findAllByText(symbolToRemove));
-      clickFilterChicklet('red');
+  //   test('uncheck failures should leave 20 jobs', async () => {
+  //     const { getAllByText, findAllByText } = render(<App />);
+  //     const symbolToRemove = 'B';
+  //     await waitForElement(() => findAllByText(symbolToRemove));
+  //     clickFilterChicklet('red');
 
-      await waitForElementToBeRemoved(() => getAllByText(symbolToRemove));
-      expect(jobCount()).toBe(20);
+  //     await waitForElementToBeRemoved(() => getAllByText(symbolToRemove));
+  //     expect(jobCount()).toBe(20);
 
-      // undo the filtering and make sure we see all the jobs again
-      clickFilterChicklet('red');
-      await waitForElement(() => getAllByText(symbolToRemove));
-      expect(jobCount()).toBe(40);
-    });
+  //     // undo the filtering and make sure we see all the jobs again
+  //     clickFilterChicklet('red');
+  //     await waitForElement(() => getAllByText(symbolToRemove));
+  //     expect(jobCount()).toBe(40);
+  //   });
 
-    test('uncheck in progress should leave 20 jobs', async () => {
-      const { getAllByText, findAllByText } = render(<App />);
-      const symbolToRemove = 'yaml';
-      await waitForElement(() => findAllByText('B'));
-      clickFilterChicklet('dkgray');
+  //   test('uncheck in progress should leave 20 jobs', async () => {
+  //     const { getAllByText, findAllByText } = render(<App />);
+  //     const symbolToRemove = 'yaml';
+  //     await waitForElement(() => findAllByText('B'));
+  //     clickFilterChicklet('dkgray');
 
-      await waitForElementToBeRemoved(() => getAllByText(symbolToRemove));
-      expect(jobCount()).toBe(30);
+  //     await waitForElementToBeRemoved(() => getAllByText(symbolToRemove));
+  //     expect(jobCount()).toBe(30);
 
-      // undo the filtering and make sure we see all the jobs again
-      clickFilterChicklet('dkgray');
-      await waitForElement(() => getAllByText(symbolToRemove));
-      expect(jobCount()).toBe(40);
-    });
+  //     // undo the filtering and make sure we see all the jobs again
+  //     clickFilterChicklet('dkgray');
+  //     await waitForElement(() => getAllByText(symbolToRemove));
+  //     expect(jobCount()).toBe(40);
+  //   });
 
-    test('Filters | Reset should get back to original set of jobs', async () => {
-      const { getAllByText, findAllByText, findByText } = render(<App />);
-      const symbolToRemove = 'yaml';
-      await waitForElement(() => findAllByText('B'));
-      clickFilterChicklet('dkgray');
+  //   test('Filters | Reset should get back to original set of jobs', async () => {
+  //     const { getAllByText, findAllByText, findByText } = render(<App />);
+  //     const symbolToRemove = 'yaml';
+  //     await waitForElement(() => findAllByText('B'));
+  //     clickFilterChicklet('dkgray');
 
-      await waitForElementToBeRemoved(() => getAllByText(symbolToRemove));
-      expect(jobCount()).toBe(30);
+  //     await waitForElementToBeRemoved(() => getAllByText(symbolToRemove));
+  //     expect(jobCount()).toBe(30);
 
-      // undo the filtering with the "Filters | Reset" menu item
-      const filtersMenu = await findByText('Filters');
-      fireEvent.click(filtersMenu);
+  //     // undo the filtering with the "Filters | Reset" menu item
+  //     const filtersMenu = await findByText('Filters');
+  //     fireEvent.click(filtersMenu);
 
-      const resetMenuItem = await waitForElement(() => findByText('Reset'));
-      fireEvent.click(resetMenuItem);
+  //     const resetMenuItem = await waitForElement(() => findByText('Reset'));
+  //     fireEvent.click(resetMenuItem);
 
-      await waitForElement(() => getAllByText(symbolToRemove));
-      expect(jobCount()).toBe(40);
-    });
-  });
+  //     await waitForElement(() => getAllByText(symbolToRemove));
+  //     expect(jobCount()).toBe(40);
+  //   });
+  // });
 });
