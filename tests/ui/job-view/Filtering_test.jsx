@@ -215,6 +215,7 @@ describe('Filtering', () => {
     // });
 
     test('click signature should have 10 jobs', async () => {
+      jest.setTimeout(15000);
       const { getByText, getByTitle, findAllByText } = render(<App />);
       const build = await waitForElement(() => findAllByText('B'));
 
